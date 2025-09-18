@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    server_name ${BACKEND_DOMAIN};
+
+    root /var/www/backend/public;
+
+    location /api/ {
+        fastcgi_pass backend:9000;
+        fastcgi_index index.php;
+        root /var/www/public;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+    }
+
+    location ~ \.php$ {
+        return 403;
+    }
+
+    access_log /var/log/nginx/${BACKEND_DOMAIN}/access.log;
+    error_log /var/log/nginx/${BACKEND_DOMAIN}/error.log;
+}
