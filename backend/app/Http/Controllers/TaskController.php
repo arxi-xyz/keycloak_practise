@@ -23,7 +23,7 @@ class TaskController extends Controller
     public function show($id)
     {
         return $this->response(
-            ShowTaskResource::make($id),
+            ShowTaskResource::make(Task::find($id)),
             'show task'
         );
     }
@@ -61,7 +61,7 @@ class TaskController extends Controller
 
     public function delete($id)
     {
-        $task = Task::find($id)->first()->delete();
+        $task = Task::find($id)->firstOrFail();
         return $this->response([], 'task deleted successfully');
     }
 }

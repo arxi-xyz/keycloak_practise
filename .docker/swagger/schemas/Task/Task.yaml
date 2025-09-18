@@ -4,6 +4,7 @@ properties:
     type: integer
   name:
     type: string
-  email:
+  status:
     type: string
-    format: email
+  user_id:
+    type: integer

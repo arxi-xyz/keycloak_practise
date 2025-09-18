@@ -1,0 +1,11 @@
+type: object
+required:
+  - name
+  - status
+properties:
+  name:
+    type: string
+    example: "Clean room"
+  status:
+    type: string
+    example: "pending"

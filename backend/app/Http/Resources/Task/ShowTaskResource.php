@@ -15,6 +15,7 @@ class ShowTaskResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'status' => $this->status,
             'user_id' => $this->user_id,

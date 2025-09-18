@@ -23,7 +23,8 @@ class TaskFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'status' => $this->status[rand(0,2)]
+            'status' => $this->status[rand(0,2)],
+            'user_id' => 1
         ];
     }
 }

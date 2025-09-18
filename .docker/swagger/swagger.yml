@@ -2,37 +2,120 @@ openapi: 3.0.3
 info:
   title: Laravel Backend Via Keycloak
   version: 1.0.0
-  description: Laravel Backend
+  description: Laravel Backend API
 servers:
   - url: http://api.keycloak.com
     description: Local Environment
 
 paths:
-  /api/users:
+  /api/tasks:
     get:
-      summary: Get paginated users
-      description: Returns a paginated list of users
+      summary: List tasks
+      tags:
+        - backend
+      description: Returns a paginated list of tasks
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
-          description: Success
+          description: Paginated list of tasks
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  msg:
-                    type: string
-                    example: "users index"
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/User'
-                  meta:
-                    $ref: '#/components/schemas/PaginationMeta'
+                $ref: '#/components/schemas/PaginatedTasks'
+    post:
+      summary: Create task
+      tags:
+        - backend
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskInput'
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+
+  /api/tasks/{id}:
+    get:
+      summary: Get task
+      tags:
+        - backend
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Single task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    put:
+      summary: Update task
+      tags:
+        - backend
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskInput'
+      responses:
+        '200':
+          description: Task updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+    delete:
+      summary: Delete task
+      tags:
+        - backend
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Task deleted successfully
 
 components:
   schemas:
-    User:
-      $ref: './schemas/users/User.yaml'
-    PaginationMeta:
-      $ref: './schemas/app/PaginationMeta.yaml'
+    Task:
+      $ref: './schemas/Task/Task.yaml'
+    TaskInput:
+      $ref: './schemas/Task/TaskInput.yaml'
+    PaginatedTasks:
+      $ref: './schemas/Task/PaginatedTask.yaml'
+
+tags:
+  - name: backend
+    description: Endpoints for application backend (tasks, etc.)
+  - name: keycloak
+    description: Endpoints for Keycloak authentication and user management
