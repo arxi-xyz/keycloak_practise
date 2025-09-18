@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description: Laravel Backend API
 servers:
-  - url: http://api.keycloak.com
+  - url: http://api.myproject.com
     description: Local Environment
 
 paths:
