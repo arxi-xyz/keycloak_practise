@@ -1,0 +1,95 @@
+services:
+  keycloak:
+    container_name: keycloak_test
+    image: quay.io/keycloak/keycloak:26.3.4
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+    ports:
+      - 8080:8080
+    command: start-dev
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: .docker/laravel/Dockerfile
+    volumes:
+      - ./.docker/laravel/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./.docker/laravel/supervisor/queue-worker.conf:/etc/supervisor/conf.d/queue-worker.conf
+      - ./.docker/laravel/supervisor/php-fpm.conf:/etc/supervisor/conf.d/php-fpm.conf
+      - ./.docker/laravel/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./backend:/var/www:delegated
+    networks:
+      - keycloak_network
+    healthcheck:
+      test: ['CMD', 'php-fpm', '-t']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    user: www-data
+
+
+  webserver:
+    container_name: webserver
+    build:
+      context: .
+      dockerfile: ./.docker/nginx/Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf  
+      - ./.docker/nginx/config/app.conf:/etc/nginx/conf.d/app.conf
+      - ./.docker/nginx/logs:/var/log/nginx
+      - ./backend:/var/www/backend
+    networks:
+      - keycloak_network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8001/up']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgresql: 
+    container_name: db
+    build: 
+      context: .
+      dockerfile: ./.docker/postgresql/Dockerfile
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=laravel_database
+      - PGDATA=/var/lib/postgresql/17/docker
+    volumes:
+      - postgresql_data:/var/lib/postgresql
+    networks:
+      - keycloak_network
+  swagger-ui:
+    container_name: swagger
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - 8081:8080
+    volumes:
+      - ./.docker/swagger:/openapi
+    environment:
+      - SWAGGER_JSON=/openapi/swagger.yml
+    networks:
+      - keycloak_network
+    restart: unless-stopped
+
+  adminer:
+    container_name: adminer
+    image: adminer:latest
+    ports:
+      - 8082:8080
+    networks:
+      - keycloak_network
+
+networks:
+  keycloak_network:
+    name: keycloak_network
+
+volumes:
+  postgresql_data:
+    

@@ -1,0 +1,1 @@
+2025/09/16 12:27:06 [emerg] 1#1: host not found in upstream "traefik_backend" in /etc/nginx/conf.d/app.conf:8

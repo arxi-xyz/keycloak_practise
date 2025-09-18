@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: Laravel Backend Via Keycloak
+  version: 1.0.0
+  description: Laravel Backend
+servers:
+  - url: http://api.keycloak.com
+    description: Local Environment
+
+paths:
+  /api/users:
+    get:
+      summary: Get paginated users
+      description: Returns a paginated list of users
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "users index"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+
+components:
+  schemas:
+    User:
+      $ref: './schemas/users/User.yaml'
+    PaginationMeta:
+      $ref: './schemas/app/PaginationMeta.yaml'
