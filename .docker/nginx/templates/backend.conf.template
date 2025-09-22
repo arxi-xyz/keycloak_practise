@@ -4,7 +4,7 @@ server {
 
     root /var/www/backend/public;
 
-    location /api/ {
+    location / {
         fastcgi_pass backend:9000;
         fastcgi_index index.php;
         root /var/www/public;

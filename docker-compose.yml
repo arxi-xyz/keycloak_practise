@@ -43,8 +43,6 @@ services:
     build:
       context: .
       dockerfile: ./.docker/nginx/Dockerfile
-    ports:
-      - '80:80'
     environment:
       - KEYCLOAK_DOMAIN=${KEYCLOAK_DOMAIN}
       - BACKEND_DOMAIN=${BACKEND_DOMAIN}
@@ -84,6 +82,7 @@ services:
       - ./.docker/postgresql/scripts/keycloak_init_db.sh:/docker-entrypoint-initdb.d/keycloak_init_db.sh
     networks:
       - keycloak_network
+
   swagger-ui:
     container_name: swagger
     image: swaggerapi/swagger-ui:latest
@@ -102,6 +101,28 @@ services:
     image: adminer:latest
     ports:
       - 8082:8080
+    networks:
+      - keycloak_network
+
+  traefik:
+    container_name: traefik
+    image: traefik:v3.4
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./.docker/traefik/config/dynamic/:/etc/traefik/dynamic:ro
+      - ./.docker/traefik/config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./.docker/traefik/certs:/etc/traefik/certs/
+      - ./.docker/traefik/logs/:/var/log/traefik/
+
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+      interval: 10s
+      timeout: 10s
+      retries: 5
     networks:
       - keycloak_network
 

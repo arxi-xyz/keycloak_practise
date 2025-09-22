@@ -1,0 +1,32 @@
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+    http:
+      tls: true
+
+providers:
+  file:
+    directory: /etc/traefik/dynamic/
+    watch: true
+
+log:
+  level: TRACE
+  filePath: /var/log/traefik/traefik.log
+
+accesslog:
+  format: json
+  filePath: /var/log/traefik/access.log
+
+api:
+  dashboard: true
+  insecure: true
+
+
+tls:
+  certificates:
+    - certFile: 
+      keyFile: 
+
+ping: {}

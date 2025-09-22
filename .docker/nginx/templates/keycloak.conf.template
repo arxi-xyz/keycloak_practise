@@ -16,7 +16,6 @@ server {
         proxy_set_header Connection "upgrade";
     }
 
-    # لاگ‌ها
     access_log /var/log/nginx/${KEYCLOAK_DOMAIN}/access.log;
     error_log /var/log/nginx/${KEYCLOAK_DOMAIN}/error.log;
 }

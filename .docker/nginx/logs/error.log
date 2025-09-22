@@ -1,3 +1,7 @@
 2025/09/18 13:52:31 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/app.conf:29
 2025/09/18 13:53:18 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/app.conf:29
 2025/09/18 16:12:11 [emerg] 1#1: unknown directive "=" in /etc/nginx/nginx.conf:5
+2025/09/22 12:35:22 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
+2025/09/22 12:35:49 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
+2025/09/22 12:37:38 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
+2025/09/22 12:38:54 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
