@@ -2,3 +2,5 @@ tls:
   certificates:
     - certFile: /etc/traefik/certs/traefik.myproject.com.pem
       keyFile: /etc/traefik/certs/traefik.myproject.com-key.pem
+    - certFile: /etc/traefik/certs/adminer.myproject.com.pem
+      keyFile: /etc/traefik/certs/adminer.myproject.com-key.pem
