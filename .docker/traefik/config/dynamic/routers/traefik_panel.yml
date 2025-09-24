@@ -7,6 +7,7 @@ http:
       service: api@internal
       middlewares:
         - redirect-to-https
+        - dashboard-auth
       tls:
         domains:
           - main: "traefik.myproject.com"

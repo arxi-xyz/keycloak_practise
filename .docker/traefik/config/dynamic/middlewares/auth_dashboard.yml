@@ -1,0 +1,5 @@
+http:
+  middlewares:
+    dashboard-auth:
+      basicauth:
+        users: "user:$apr1$JN8S/QbU$kaRZhm/UoeoK6J4I3ZLGh."

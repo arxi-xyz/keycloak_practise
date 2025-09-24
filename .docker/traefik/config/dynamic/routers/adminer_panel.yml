@@ -1,0 +1,10 @@
+http:
+  routers:
+    database_panel:
+      rule: "Host(`adminer.myproject.com`)"
+      entryPoints:
+        - websecure 
+      service: adminer_service
+      tls:
+        domains:
+          - main: "adminer.myproject.com"

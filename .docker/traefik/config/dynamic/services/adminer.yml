@@ -1,0 +1,7 @@
+http:
+  services:
+    adminer_service:
+      loadBalancer:
+        servers:
+          - url: "http://adminer:8080"
+      

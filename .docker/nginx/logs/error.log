@@ -5,3 +5,6 @@
 2025/09/22 12:35:49 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
 2025/09/22 12:37:38 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
 2025/09/22 12:38:54 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
+2025/09/24 15:05:25 [emerg] 1#1: host not found in upstream "backend" in /etc/nginx/conf.d/backend.conf:8
+2025/09/24 15:08:36 [emerg] 1#1: host not found in upstream "backend" in /etc/nginx/conf.d/backend.conf:8
+2025/09/24 15:33:42 [emerg] 1#1: host not found in upstream "keycloak" in /etc/nginx/conf.d/keycloak.conf:6
