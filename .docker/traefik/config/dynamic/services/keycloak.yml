@@ -1,0 +1,6 @@
+http:
+  services:
+    keycloak_service:
+      loadBalancer:
+        servers:
+          - url: "http://keycloak:8080"

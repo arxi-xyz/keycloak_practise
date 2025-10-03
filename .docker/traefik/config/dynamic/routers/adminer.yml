@@ -1,0 +1,22 @@
+http:
+  routers:
+    adminer:
+      rule: "Host(`adminer.myproject.com`)"
+      entryPoints:
+        - websecure
+      service: adminer_service
+      middlewares:
+        - redirect-to-https
+        - adminer-auth
+      tls:
+        domains:
+          - main: "adminer.myproject.com"
+
+  middlewares:
+    adminer-auth:
+      forwardAuth:
+        address: "http://keycloak-proxy:3000"
+        trustForwardHeader: true
+        authResponseHeaders:
+          - "X-Forwarded-User"
+          - "X-Forwarded-Email"

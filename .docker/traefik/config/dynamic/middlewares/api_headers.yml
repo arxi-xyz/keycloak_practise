@@ -1,0 +1,9 @@
+http:
+  middlewares:
+    http-api-headers:
+      headers:
+        customRequestHeaders:
+          Content-Type: "application/json"
+          Accept: "application/json"
+        customResponseHeaders:
+          Content-Type: "application/json"

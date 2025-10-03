@@ -1,0 +1,12 @@
+http:
+  routers:
+    swagger:
+      rule: "Host(`swagger.myproject.com`)"
+      entryPoints:
+        - websecure
+      service: swagger_service
+      middlewares:
+        - redirect-to-https
+      tls:
+        domains:
+          - main: "swagger.myproject.com"

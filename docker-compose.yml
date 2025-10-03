@@ -10,54 +10,66 @@ services:
       - KC_DB_USERNAME=${KEYCLOAK_DATABASE_USER}
       - KC_DB_PASSWORD=${KEYCLOAK_DATABASE_PASSWORD}
       - KC_HOSTNAME=${KEYCLOAK_DOMAIN}
+      - KC_PROXY_HEADERS=xforwarded
+      - KC_HTTP_ENABLED=true
+      - KC_HOSTNAME_STRICT=false
+      - KC_HTTP_RELATIVE_PATH=/
     ports:
       - ${KEYCLOAK_PORT}:8080
     networks:
-      - keycloak_network
+      keycloak_network:
+        ipv4_address: 172.28.0.10
     command: start-dev
-
-  backend:
-    container_name: backend
-    build:
-      context: .
-      dockerfile: .docker/laravel/Dockerfile
-    volumes:
-      - ./.docker/laravel/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
-      - ./.docker/laravel/supervisor/queue-worker.conf:/etc/supervisor/conf.d/queue-worker.conf
-      - ./.docker/laravel/supervisor/php-fpm.conf:/etc/supervisor/conf.d/php-fpm.conf
-      - ./.docker/laravel/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./backend:/var/www:delegated
-    networks:
-      - keycloak_network
     healthcheck:
-      test: ['CMD', 'php-fpm', '-t']
-      interval: 10s
+      test: [ "CMD", "curl", "-f", "curl --head -fsS http://localhost:9000/health/ready" ]
+      interval: 15s
       timeout: 5s
       retries: 5
-      start_period: 30s
-    user: www-data
+      start_period: 10s
 
+#  backend:
+#    container_name: backend
+#    build:
+#      context: .
+#      dockerfile: .docker/laravel/Dockerfile
+#    volumes:
+#      - ./.docker/laravel/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
+#      - ./.docker/laravel/supervisor/queue-worker.conf:/etc/supervisor/conf.d/queue-worker.conf
+#      - ./.docker/laravel/supervisor/php-fpm.conf:/etc/supervisor/conf.d/php-fpm.conf
+#      - ./.docker/laravel/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
+#      - ./backend:/var/www:delegated
+#    networks:
+#      keycloak_network:
+#        ipv4_address: 172.28.0.11
+#    healthcheck:
+#      test: ['CMD', 'php-fpm', '-t']
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#      start_period: 30s
+#    user: www-data
 
-  webserver:
-    container_name: webserver
-    build:
-      context: .
-      dockerfile: ./.docker/nginx/Dockerfile
-    environment:
-      - KEYCLOAK_DOMAIN=${KEYCLOAK_DOMAIN}
-      - BACKEND_DOMAIN=${BACKEND_DOMAIN}
-    volumes:
-      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./.docker/nginx/templates:/etc/nginx/templates
-      - ./.docker/nginx/logs:/var/log/nginx
-      - ./backend:/var/www/backend
-    networks:
-      - keycloak_network
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:8001/up']
-      interval: 10s
-      timeout: 5s
-      retries: 5
+#  webserver:
+#    container_name: webserver
+#    build:
+#      context: .
+#      dockerfile: ./.docker/nginx/Dockerfile
+#    environment:
+#      - KEYCLOAK_DOMAIN=${KEYCLOAK_DOMAIN}
+#      - BACKEND_DOMAIN=${BACKEND_DOMAIN}
+#    volumes:
+#      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - ./.docker/nginx/templates:/etc/nginx/templates
+#      - ./.docker/nginx/logs:/var/log/nginx
+#      - ./backend:/var/www/backend
+#    networks:
+#      keycloak_network:
+#        ipv4_address: 172.28.0.13
+#    healthcheck:
+#      test: ['CMD', 'curl', '-f', 'http://localhost:8001/up']
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
 
   postgresql: 
     container_name: db
@@ -81,29 +93,31 @@ services:
       - postgresql_data:/var/lib/postgresql
       - ./.docker/postgresql/scripts/keycloak_init_db.sh:/docker-entrypoint-initdb.d/keycloak_init_db.sh
     networks:
-      - keycloak_network
+      keycloak_network:
+        ipv4_address: 172.28.0.14
 
-  swagger-ui:
-    container_name: swagger
-    image: swaggerapi/swagger-ui:latest
-    ports:
-      - 8081:8080
-    volumes:
-      - ./.docker/swagger:/openapi
-    environment:
-      - SWAGGER_JSON=/openapi/swagger.yml
-    networks:
-      - keycloak_network
-    restart: unless-stopped
+#  swagger-ui:
+#    container_name: swagger
+#    image: swaggerapi/swagger-ui:latest
+#    ports:
+#      - 8081:8080
+#    volumes:
+#      - ./.docker/swagger:/openapi
+#    environment:
+#      - SWAGGER_JSON=/openapi/swagger.yml
+#    networks:
+#      keycloak_network:
+#        ipv4_address: 172.28.0.15
+#    restart: unless-stopped
 
   adminer:
     container_name: adminer
     image: adminer:latest
     ports:
       - 8082:8080
-    
     networks:
-      - keycloak_network
+      keycloak_network:
+        ipv4_address: 172.28.0.17
 
   traefik:
     container_name: traefik
@@ -120,18 +134,21 @@ services:
       - ./.docker/traefik/logs/:/var/log/traefik/
     environment:
       - TZ=Asia/Tehran
-
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
       interval: 10s
       timeout: 10s
       retries: 5
     networks:
-      - keycloak_network
+      keycloak_network:
+        ipv4_address: 172.28.0.18
 
 networks:
   keycloak_network:
-    name: keycloak_network
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
 
 volumes:
   postgresql_data:

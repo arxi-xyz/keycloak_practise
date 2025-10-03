@@ -1,0 +1,12 @@
+http:
+  routers:
+    keycloak:
+      rule: "Host(`keycloak.myproject.com`)"
+      entryPoints:
+        - websecure
+      service: keycloak_service
+      middlewares:
+        - redirect-to-https
+      tls:
+        domains:
+          - main: "keycloak.myproject.com"
