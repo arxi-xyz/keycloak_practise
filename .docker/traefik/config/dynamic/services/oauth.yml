@@ -1,0 +1,7 @@
+http:
+  services:
+    oauth_service:
+      loadBalancer:
+        servers:
+          - url: "http://oauth2-proxy:4180"
+      

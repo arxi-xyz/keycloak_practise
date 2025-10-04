@@ -1,0 +1,12 @@
+http:
+  routers:
+    oauth:
+      rule: "Host(`oauth.myproject.com`)"
+      entryPoints:
+        - websecure
+      service: oauth_service
+      middlewares:
+        - redirect-to-https
+      tls:
+        domains:
+          - main: "oauth.myproject.com"
