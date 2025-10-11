@@ -27,6 +27,6 @@ ping: {}
 
 experimental:
   plugins:
-    jwt:
-      moduleName: github.com/auth0/traefik-jwt-plugin
-      version: v0.0.1
+    jwt-validation:
+      moduleName: "github.com/agilezebra/jwt-middleware"
+      version: "v1.3.2"

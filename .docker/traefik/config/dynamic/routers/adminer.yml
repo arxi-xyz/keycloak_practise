@@ -8,6 +8,7 @@ http:
       middlewares:
         - redirect-to-https
         - auth
+        - role-check
       tls:
         domains:
           - main: "adminer.myproject.com"
@@ -21,10 +22,17 @@ http:
           - X-Auth-Request-User
           - X-Auth-Request-Email
           - Authorization
-#    role-check:
-#      plugin:
-#        jwt:
-#          jwksUri: "https://keycloak.myproject.com/realms/keycloak_platform/protocol/openid-connect/certs"
-#          rules:
-#            - claim: "realm_access.roles"
-#              contains: "developer"
+
+    role-check:
+      plugin:
+        jwt-validation:
+          insecureSkipVerify: true
+          jwksUrl: "https://keycloak.myproject.com:8080/realms/keycloak_platform/protocol/openid-connect/certs"
+          requiredClaims:
+            - name: "realm_access.roles"
+              values: ["developer"]
+          issuers:
+            - "https://keycloak.myproject.com/realms/keycloak_platform"
+          audiences:
+            - "account"
+          addContextHeaders: true
