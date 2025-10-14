@@ -14,14 +14,13 @@ services:
       - KC_HTTP_ENABLED=true
       - KC_HOSTNAME_STRICT=false
       - KC_HTTP_RELATIVE_PATH=/
+      - DISABLE_SSL_VERIFY=true
     ports:
       - ${KEYCLOAK_PORT}:8080
     networks:
       keycloak_network:
         ipv4_address: 172.28.0.10
     command: start-dev
-    extra_hosts:
-      - "oauth.myproject.com:172.28.0.18"
     healthcheck:
       test: [ "CMD", "curl", "-f", "curl --head -fsS http://localhost:9000/health/ready" ]
       interval: 15s
@@ -96,6 +95,15 @@ services:
     networks:
       - keycloak_network
 
+  auth:
+    container_name: auth
+    build:
+      context: ./.docker/python_middleware/
+      dockerfile: Dockerfile
+    networks:
+      - keycloak_network
+    extra_hosts:
+      - "keycloak.myproject.com:172.28.0.18"
 networks:
   keycloak_network:
     ipam:

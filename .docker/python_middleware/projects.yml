@@ -1,0 +1,7 @@
+projects:
+  back-1:
+    roles:
+      - developer
+  back-2:
+    roles:
+      - admin

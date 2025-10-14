@@ -7,6 +7,14 @@ http:
       service: back2_service
       middlewares:
         - redirect-to-https
+        - header-back2
+        - auth_middleware
       tls:
         domains:
           - main: "back2.myproject.com"
+
+  middlewares:
+    header-back2:
+      headers:
+        customRequestHeaders:
+          X-Project-Name: "back-2"

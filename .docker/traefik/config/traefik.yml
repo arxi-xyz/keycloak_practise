@@ -24,9 +24,3 @@ api:
   insecure: true
 
 ping: {}
-
-experimental:
-  plugins:
-    jwt-validation:
-      moduleName: "github.com/agilezebra/jwt-middleware"
-      version: "v1.3.2"

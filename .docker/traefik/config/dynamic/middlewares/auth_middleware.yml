@@ -1,0 +1,11 @@
+http:
+  middlewares:
+    auth_middleware:
+      forwardAuth:
+        address: "http://auth:8000/traefik-auth"
+        trustForwardHeader: true
+        authResponseHeaders:
+          - "X-Forwarded-UserId"
+          - "X-Forwarded-User"
+          - "X-Forwarded-Project"
+          - "X-Forwarded-Roles"
