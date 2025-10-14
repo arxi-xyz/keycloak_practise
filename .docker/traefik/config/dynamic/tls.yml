@@ -2,15 +2,9 @@ tls:
   certificates:
     - certFile: /etc/traefik/certs/traefik.myproject.com.pem
       keyFile: /etc/traefik/certs/traefik.myproject.com-key.pem
-    - certFile: /etc/traefik/certs/adminer.myproject.com.pem
-      keyFile: /etc/traefik/certs/adminer.myproject.com-key.pem
-    - certFile: /etc/traefik/certs/swagger.myproject.com.pem
-      keyFile: /etc/traefik/certs/swagger.myproject.com-key.pem
-    - certFile: /etc/traefik/certs/frontend.myproject.com.pem
-      keyFile: /etc/traefik/certs/frontend.myproject.com-key.pem
-    - certFile: /etc/traefik/certs/backend.myproject.com.pem
-      keyFile: /etc/traefik/certs/backend.myproject.com-key.pem
     - certFile: /etc/traefik/certs/keycloak.myproject.com.pem
       keyFile: /etc/traefik/certs/keycloak.myproject.com-key.pem
-    - certFile: /etc/traefik/certs/oauth.myproject.com.pem
-      keyFile: /etc/traefik/certs/oauth.myproject.com-key.pem
+    - certFile: /etc/traefik/certs/back1.myproject.com.pem
+      keyFile: /etc/traefik/certs/back1.myproject.com-key.pem
+    - certFile: /etc/traefik/certs/back2.myproject.com.pem
+      keyFile: /etc/traefik/certs/back2.myproject.com-key.pem

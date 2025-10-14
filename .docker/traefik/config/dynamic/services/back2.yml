@@ -1,0 +1,6 @@
+http:
+  services:
+    back2_service:
+      loadBalancer:
+        servers:
+          - url: "http://back2:8000"

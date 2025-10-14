@@ -1,6 +1,0 @@
-http:
-  services:
-    backend_service:
-      loadBalancer:
-        servers:
-          - url: "http://webserver:80"

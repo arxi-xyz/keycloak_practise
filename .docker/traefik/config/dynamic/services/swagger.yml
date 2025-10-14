@@ -1,7 +1,0 @@
-http:
-  services:
-    swagger_service:
-      loadBalancer:
-        servers:
-          - url: "http://swagger:8080"
-      

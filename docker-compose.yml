@@ -29,22 +29,6 @@ services:
       retries: 5
       start_period: 10s
 
-
-  oauth2-proxy:
-    container_name: oauth2-proxy
-    image: quay.io/oauth2-proxy/oauth2-proxy:v7.12.0
-    volumes:
-      - ./.docker/oauth2-proxy/oauth2-proxy.cfg:/etc/oauth2-proxy.cfg
-    command: --config=/etc/oauth2-proxy.cfg
-    networks:
-      keycloak_network:
-        ipv4_address: 172.28.0.12
-    extra_hosts:
-      - "keycloak.myproject.com:172.28.0.18"
-      - "auth.myproject.com:172.28.0.18"
-    ports:
-      - "4180:4180"
-
   postgresql: 
     container_name: db
     build: 
@@ -98,7 +82,7 @@ services:
 
   backend_1:
     image: arxi0xyz/python_simple
-    container_name: backend_1
+    container_name: back1
     environment:
       - APP_NAME=first application
     networks:
@@ -106,9 +90,9 @@ services:
 
   backend_2:
     image: arxi0xyz/python_simple
-    container_name: backend_2
+    container_name: back2
     environment:
-      - APP_NAME=first application
+      - APP_NAME=second application
     networks:
       - keycloak_network
 

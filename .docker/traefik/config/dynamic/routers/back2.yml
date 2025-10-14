@@ -1,12 +1,12 @@
 http:
   routers:
-    oauth:
-      rule: "Host(`oauth.myproject.com`)"
+    back2:
+      rule: "Host(`back2.myproject.com`)"
       entryPoints:
         - websecure
-      service: oauth_service
+      service: back2_service
       middlewares:
         - redirect-to-https
       tls:
         domains:
-          - main: "oauth.myproject.com"
+          - main: "back2.myproject.com"
