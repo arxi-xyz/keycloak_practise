@@ -4,10 +4,11 @@ http:
       rule: "Host(`traefik.myproject.com`)"
       entryPoints:
         - websecure
+        - web
       service: api@internal
-      middlewares:
-        - redirect-to-https
+      # middlewares:
+        # - redirect-to-https
 #        - dashboard-auth
-      tls:
-        domains:
-          - main: "traefik.myproject.com"
+      # tls:
+      #   domains:
+      #     - main: "traefik.myproject.com"

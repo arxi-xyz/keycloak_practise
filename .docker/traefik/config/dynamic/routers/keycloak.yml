@@ -4,9 +4,10 @@ http:
       rule: "Host(`keycloak.myproject.com`)"
       entryPoints:
         - websecure
+        - web
       service: keycloak_service
-      middlewares:
-        - redirect-to-https
-      tls:
-        domains:
-          - main: "keycloak.myproject.com"
+      # middlewares:
+        # - redirect-to-https
+      # tls:
+      #   domains:
+      #     - main: "keycloak.myproject.com"

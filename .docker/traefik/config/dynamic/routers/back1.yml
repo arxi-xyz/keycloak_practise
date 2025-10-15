@@ -4,14 +4,15 @@ http:
       rule: "Host(`back1.myproject.com`)"
       entryPoints:
         - websecure
+        - web
       service: back1_service
       middlewares:
-        - redirect-to-https
+        # - redirect-to-https
         - header-back1
         - auth_middleware
-      tls:
-        domains:
-          - main: "back1.myproject.com"
+      # tls:
+      #   domains:
+      #     - main: "back1.myproject.com"
 
   middlewares:
     header-back1:
