@@ -8,6 +8,8 @@ include:
   - ./.docker/postgresql/docker-compose.yml
   - ./.docker/traefik/docker-compose.yml
   - ./.docker/python_middleware/docker-compose.yml
+  - ./.docker/laravel_backend/docker-compose.yml
+  - ./.docker/webserver/docker-compose.yml
 
 services:
   keycloak:

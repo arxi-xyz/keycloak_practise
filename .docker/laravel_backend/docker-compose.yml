@@ -1,0 +1,21 @@
+services:
+  backend:
+    container_name: laravel_backend
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    volumes:
+      - ./.docker/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
+      - ./.docker/supervisor/queue-worker.conf:/etc/supervisor/conf.d/queue-worker.conf
+      - ./.docker/supervisor/php-fpm.conf:/etc/supervisor/conf.d/php-fpm.conf
+      - ./.docker/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./:/var/www:delegated
+    networks:
+      - keycloak_network
+    healthcheck:
+      test: ["CMD", "php-fpm", "-t"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    user: www-data

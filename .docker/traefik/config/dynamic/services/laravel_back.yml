@@ -1,0 +1,6 @@
+http:
+  services:
+    laravel_back_service:
+      loadBalancer:
+        servers:
+          - url: "http://webserver:80"

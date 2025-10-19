@@ -1,0 +1,21 @@
+services:
+  webserver:
+    container_name: webserver
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - KEYCLOAK_DOMAIN=${KEYCLOAK_DOMAIN}
+      - BACKEND_DOMAIN=${BACKEND_DOMAIN}
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./templates:/etc/nginx/templates
+      - ./logs:/var/log/nginx
+      - ./../laravel_backend:/var/www/backend
+    networks:
+      - keycloak_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/up"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
