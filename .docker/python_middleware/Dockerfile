@@ -4,12 +4,6 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN apt-get update && apt-get install -y ca-certificates
-
-COPY rootCA.pem /usr/local/share/ca-certificates/rootCA.crt
-
-RUN update-ca-certificates
-
 COPY auth.py /app/
 COPY projects.yml /app/
 COPY .env /app/

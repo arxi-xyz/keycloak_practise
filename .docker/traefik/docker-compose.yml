@@ -1,0 +1,23 @@
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v3.4
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/dynamic/:/etc/traefik/dynamic:ro
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./certs:/etc/traefik/certs/
+      - ./logs/:/var/log/traefik/
+    environment:
+      - TZ=Asia/Tehran
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - keycloak_network

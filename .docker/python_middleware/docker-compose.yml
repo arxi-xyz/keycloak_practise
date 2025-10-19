@@ -1,0 +1,8 @@
+services:
+  auth:
+    container_name: auth
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - keycloak_network

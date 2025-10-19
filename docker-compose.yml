@@ -1,5 +1,17 @@
+x-default-properties: &default-properties
+  restart: unless-stopped
+  networks:
+    - keycloak_network
+
+include:
+  - ./.docker/swagger/docker-compose.yml
+  - ./.docker/postgresql/docker-compose.yml
+  - ./.docker/traefik/docker-compose.yml
+  - ./.docker/python_middleware/docker-compose.yml
+
 services:
   keycloak:
+    <<: *default-properties
     container_name: keycloak
     image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
     environment:
@@ -15,85 +27,33 @@ services:
       - KC_HOSTNAME_STRICT=false
       - KC_HTTP_RELATIVE_PATH=/
       - DISABLE_SSL_VERIFY=true
-    networks:
-      - keycloak_network
+
     command: start-dev
     healthcheck:
-      test: [ "CMD", "curl", "-f", "curl --head -fsS http://localhost:9000/health/ready" ]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "curl --head -fsS http://localhost:9000/health/ready",
+        ]
       interval: 15s
       timeout: 5s
       retries: 5
       start_period: 10s
-
-  postgresql: 
-    container_name: db
-    build: 
-      context: .
-      dockerfile: ./.docker/postgresql/Dockerfile
-      args:
-        - POSTGRES_VERSION=${POSTGRES_VERSION}
-    environment:
-      - POSTGRES_USER=${POSTGRES_USERNAME}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DATABASE}
-      - PGDATA=/var/lib/postgresql/17/docker
-
-      - KEYCLOAK_DATABASE=${KEYCLOAK_DATABASE}
-      - KEYCLOAK_DATABASE_USER=${KEYCLOAK_DATABASE_USER}
-      - KEYCLOAK_DATABASE_PASSWORD=${KEYCLOAK_DATABASE_PASSWORD}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgresql_data:/var/lib/postgresql
-      - ./.docker/postgresql/scripts/keycloak_init_db.sh:/docker-entrypoint-initdb.d/keycloak_init_db.sh
-    networks:
-      - keycloak_network
-
-  traefik:
-    container_name: traefik
-    image: traefik:v3.4
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./.docker/traefik/config/dynamic/:/etc/traefik/dynamic:ro
-      - ./.docker/traefik/config/traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./.docker/traefik/certs:/etc/traefik/certs/
-      - ./.docker/traefik/logs/:/var/log/traefik/
-    environment:
-      - TZ=Asia/Tehran
-    healthcheck:
-      test: ['CMD', 'traefik', 'healthcheck', '--ping']
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    networks:
-      - keycloak_network
   backend_1:
     image: arxi0xyz/python_simple
     container_name: back1
     environment:
       - APP_NAME=first application
-    networks:
-      - keycloak_network
+    <<: *default-properties
 
   backend_2:
     image: arxi0xyz/python_simple
     container_name: back2
     environment:
       - APP_NAME=second application
-    networks:
-      - keycloak_network
-
-  auth:
-    container_name: auth
-    build:
-      context: ./.docker/python_middleware/
-      dockerfile: Dockerfile
-    networks:
-      - keycloak_network
+    <<: *default-properties
 
 networks:
   keycloak_network:
@@ -104,4 +64,3 @@ networks:
 
 volumes:
   postgresql_data:
-    
