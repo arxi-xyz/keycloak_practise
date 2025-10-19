@@ -6,5 +6,3 @@ tls:
       keyFile: /etc/traefik/certs/keycloak.myproject.com-key.pem
     - certFile: /etc/traefik/certs/back1.myproject.com.pem
       keyFile: /etc/traefik/certs/back1.myproject.com-key.pem
-    - certFile: /etc/traefik/certs/back2.myproject.com.pem
-      keyFile: /etc/traefik/certs/back2.myproject.com-key.pem

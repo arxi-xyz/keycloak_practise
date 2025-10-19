@@ -1,6 +1,6 @@
 http:
   services:
-    laravel_back_service:
+    task_api_service:
       loadBalancer:
         servers:
           - url: "http://webserver:80"

@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: laravel_backend
+    container_name: task_api
     build:
       context: .
       dockerfile: .docker/Dockerfile

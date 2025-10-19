@@ -1,11 +1,11 @@
 http:
   routers:
     laravel_back:
-      rule: "Host(`backend.myproject.com`)"
+      rule: "Host(`task.myproject.com`)"
       entryPoints:
         - websecure
         - web
-      service: laravel_back_service
+      service: task_api_service
       middlewares:
         # - redirect-to-https
         - header-back1
@@ -18,4 +18,4 @@ http:
     header-back1:
       headers:
         customRequestHeaders:
-          X-Project-Name: "laravel"
+          X-Project-Name: "task"
