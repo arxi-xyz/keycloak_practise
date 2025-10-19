@@ -5,6 +5,7 @@ include:
   - ./.docker/python_middleware/docker-compose.yml
   - ./.docker/task_api/docker-compose.yml
   - ./.docker/webserver/docker-compose.yml
+  - ./.docker/keycloak/docker-compose.yml
 
 services:
   backend_1:
