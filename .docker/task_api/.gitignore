@@ -24,3 +24,6 @@ Homestead.yaml
 Thumbs.db
 .sudo_as_admin_successful
 /.local
+.bash_history
+/.cache
+.bash_history
