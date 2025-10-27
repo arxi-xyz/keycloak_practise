@@ -1,7 +1,7 @@
 http:
   routers:
     laravel_back:
-      rule: "Host(`task.myproject.com`)"
+      rule: "Host(`task.myproject.com`) && PathPrefix(`/api`)"
       entryPoints:
         - websecure
         - web

@@ -22,3 +22,6 @@ services:
       - ./scripts/keycloak_init_db.sh:/docker-entrypoint-initdb.d/keycloak_init_db.sh
     networks:
       - keycloak_network
+      
+volumes:
+  postgresql_data:

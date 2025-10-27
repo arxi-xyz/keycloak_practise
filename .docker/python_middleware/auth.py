@@ -160,7 +160,7 @@ def get_project_config():
 # STARTUP
 # ======================
 
-async def safe_get(url: str):
+async def safe_get(url: str):authorization layer
     async with httpx.AsyncClient(verify=not settings.DISABLE_SSL_VERIFY) as client:
         return await client.get(url)
 

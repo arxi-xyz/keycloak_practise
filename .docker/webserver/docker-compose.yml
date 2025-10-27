@@ -11,7 +11,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./templates:/etc/nginx/templates
       - ./logs:/var/log/nginx
-      - ./../laravel_backend:/var/www/backend
+      - ./../task_api:/var/www/backend
     networks:
       - keycloak_network
     healthcheck:
