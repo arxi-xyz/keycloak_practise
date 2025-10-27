@@ -7,10 +7,10 @@ Laravel Service with simple crud
 | Feature                                       | Status | Description                                                                                                  |
 | --------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
 | Implement simple crud                         | ✅      | Simple crud for implementing authorization on different routes                                               |
-| Implement jwt check middeware                 | ✅      | ----------------------------------------------                                                               |
+| Implement jwt check middeware                 | ✅      |                                                                                                              |
 | Implement authorization middeware             | 🟢      | This Feature should be implement in python service but bcz i have lack of expreince with python i do it here |
-| Implement caching for authorization middeware | ⬜      | ----------------------------------------------                                                               |
-| central .env file                             | ⬜      | ----------------------------------------------                                                               |
+| Implement caching for authorization middeware | ⬜      |                                                                                                              |
+| central .env file                             | ⬜      |                                                                                                              |
 
 ## Folder Structure
 

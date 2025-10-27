@@ -6,7 +6,7 @@ A secure and scaleble authentication-authorization platform built using modern o
 
 - [**Traefik**](./.docker/traefik/readme.md) – Reverse proxy and routing manager
 - [**Keycloak**](./.docker/keycloak/readme.md) – Identity and access management
-- [**Nginx**](./.docker/nginx/readme.md) – Web server for Laravel
+- [**Nginx**](./.docker/webserver/readme.md) – Web server for Laravel
 - [**PostgreSQL**](./.docker/postgresql/readme.md) – Relational database
 - **Redis** – Caching
 - [**FastAPI**](./.docker/python_middleware/readme.md) – Python authentication middleware
