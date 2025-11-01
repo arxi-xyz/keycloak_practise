@@ -44,8 +44,8 @@ A secure and scaleble authentication-authorization platform built using modern o
 ```bash
 # linux command
 echo "127.0.0.1 keycloak.myproject.com back1.myproject.com traefik.myproject.com task.myproject.com" | sudo tee -a /etc/hosts 
-git clone https://github.com/yourusername/authstack.git
-cd authstack
+git clone https://github.com/arxi-xyz/keycloak_practise
+cd keycloak
 cp .env.example .env
 make up
 ```
