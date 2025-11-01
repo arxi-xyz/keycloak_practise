@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\KeycloakAuthMiddleware;
+use App\Http\Middleware\SetPermissionsToCache;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,9 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
                       health: '/up',
                   )
                   ->withMiddleware(function (Middleware $middleware): void {
-                      $middleware->api(prepend: [
-                          KeycloakAuthMiddleware::class,
-                      ]);
+                      $middleware->append(SetPermissionsToCache::class);
                   })
                   ->withExceptions(function (Exceptions $exceptions): void {
                       //

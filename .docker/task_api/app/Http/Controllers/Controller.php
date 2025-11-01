@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+abstract class Controller extends \Illuminate\Routing\Controller
 {
+    use AuthorizesRequests;
     public function response($data, $msg, $code = 200)
     {
         return response()->json([

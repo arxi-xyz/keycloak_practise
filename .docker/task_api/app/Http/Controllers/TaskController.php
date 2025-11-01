@@ -10,6 +10,12 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class, 'task');
+    }
+
     public function index()
     {
         $tasks = Task::paginate(15);
@@ -20,10 +26,10 @@ class TaskController extends Controller
         );
     }
 
-    public function show($id)
+    public function show(Task $task)
     {
         return $this->response(
-            ShowTaskResource::make(Task::find($id)),
+            ShowTaskResource::make($task),
             'show task'
         );
     }
@@ -33,8 +39,8 @@ class TaskController extends Controller
         $user_id = 1; // todo: get user id from keycloak
 
         $task = Task::create([
-            'name' => $request->name,
-            'status' => $request->status,
+            'name'    => $request->name,
+            'status'  => $request->status,
             'user_id' => $user_id,
         ]);
         return $this->response(
@@ -43,13 +49,12 @@ class TaskController extends Controller
         );
     }
 
-    public function update(UpdateTaskRequest $request, $id)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        $task = Task::find($id)->first();
         $user_id = 1;
         $task->update([
-            'name' => $request->name,
-            'status' => $request->status,
+            'name'    => $request->name,
+            'status'  => $request->status,
             'user_id' => $user_id,
         ]);
 
@@ -59,9 +64,9 @@ class TaskController extends Controller
         );
     }
 
-    public function delete($id)
+    public function destroy(Task $task)
     {
-        $task = Task::find($id)->firstOrFail();
+        $task->delete();
         return $this->response([], 'task deleted successfully');
     }
 }
