@@ -5,9 +5,5 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY auth.py /app/
-COPY projects.yml /app/
-COPY .env /app/
 
-ENV PYTHONUNBUFFERED=1
-
-CMD ["uvicorn", "auth:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers"]
+CMD ["uvicorn", "auth:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]  

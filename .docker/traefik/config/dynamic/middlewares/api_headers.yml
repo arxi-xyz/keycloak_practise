@@ -1,6 +1,6 @@
 http:
   middlewares:
-    http-api-headers:
+    api_headers:
       headers:
         customRequestHeaders:
           Content-Type: "application/json"

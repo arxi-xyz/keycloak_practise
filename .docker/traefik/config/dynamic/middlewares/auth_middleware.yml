@@ -2,7 +2,7 @@ http:
   middlewares:
     auth_middleware:
       forwardAuth:
-        address: "http://auth:8000/traefik-auth"
+        address: "http://auth:8000/validate"
         trustForwardHeader: true
         authResponseHeaders:
           - "X-Forwarded-UserId"

@@ -9,7 +9,8 @@ http:
       middlewares:
         # - redirect-to-https
         - header-back1
-        # - auth_middleware
+        - auth_middleware
+        - api_headers
       # tls:
       #   domains:
       #     - main: "back1.myproject.com"

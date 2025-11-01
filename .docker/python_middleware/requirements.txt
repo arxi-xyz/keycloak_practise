@@ -1,7 +1,7 @@
 fastapi
-uvicorn[standard]
-httpx
-PyJWT[crypto]
-pyyaml
-pydantic>=2.12
+uvicorn
+python-dotenv
+requests
+python-jose[cryptography]
+cachetools
 pydantic-settings
