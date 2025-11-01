@@ -15,7 +15,10 @@ services:
       - KC_HOSTNAME_STRICT=false
       - KC_HTTP_RELATIVE_PATH=/
       - DISABLE_SSL_VERIFY=true
-    command: start-dev
+      - KC_IMPORT=/opt/keycloak/data/myrealm.json
+    command: start-dev --import-realm
+    volumes:
+      - ./data:/opt/keycloak/data/import
     healthcheck:
       test:
         [

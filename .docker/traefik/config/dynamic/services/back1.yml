@@ -1,6 +1,0 @@
-http:
-  services:
-    back1_service:
-      loadBalancer:
-        servers:
-          - url: "http://back1:8000"

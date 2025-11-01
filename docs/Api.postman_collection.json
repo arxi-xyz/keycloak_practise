@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "ce71ccd2-32e1-4325-b2c8-f43eaa3f8626",
+		"name": "Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18301460"
+	},
+	"item": [
+		{
+			"name": "task api",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Charset",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://task.myproject.com/api/v1/tasks",
+							"protocol": "http",
+							"host": [
+								"task",
+								"myproject",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Charset",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test 2\",\n    \"status\":\"PENDING\" // DONE,PENDING,DOING\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://task.myproject.com/api/v1/tasks",
+							"protocol": "http",
+							"host": [
+								"task",
+								"myproject",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Charset",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"fuck task\",\n    \"status\":\"PENDING\" // DONE,PENDING,DOING\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://task.myproject.com/api/v1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"task",
+								"myproject",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Charset",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"fuck task\",\n    \"status\":\"PENDING\" // DONE,PENDING,DOING\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://task.myproject.com/api/v1/tasks/1",
+							"protocol": "http",
+							"host": [
+								"task",
+								"myproject",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authentication_client",
+			"item": [
+				{
+					"name": "authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.environment.set(\"token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "authentication",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "a.sh",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pass",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "hDlAEUgt6Q8Kz113yOkqjSXbZKkGpZru",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://keycloak.myproject.com/realms/platform/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"keycloak",
+								"myproject",
+								"com"
+							],
+							"path": [
+								"realms",
+								"platform",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "admin user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "authentication",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "a.sh",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "pass",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "hDlAEUgt6Q8Kz113yOkqjSXbZKkGpZru",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://keycloak.myproject.com/realms/platform/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"keycloak",
+										"myproject",
+										"com"
+									],
+									"path": [
+										"realms",
+										"platform",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "normal user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "authentication",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "a.sh2",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "hDlAEUgt6Q8Kz113yOkqjSXbZKkGpZru",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://keycloak.myproject.com/realms/platform/protocol/openid-connect/token",
+									"protocol": "http",
+									"host": [
+										"keycloak",
+										"myproject",
+										"com"
+									],
+									"path": [
+										"realms",
+										"platform",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "authorization",
+			"item": [
+				{
+					"name": "has access",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "urn:ietf:params:oauth:grant-type:uma-ticket",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "authorization",
+									"type": "text"
+								},
+								{
+									"key": "response_mode",
+									"value": "permissions",
+									"type": "text"
+								},
+								{
+									"key": "permission",
+									"value": "task#store",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://keycloak.myproject.com/realms/platform/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"keycloak",
+								"myproject",
+								"com"
+							],
+							"path": [
+								"realms",
+								"platform",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -8,19 +8,8 @@ include:
   - ./.docker/keycloak/docker-compose.yml
   - ./.docker/redis/docker-compose.yml
 
-services:
-  backend_1:
-    image: arxi0xyz/python_simple
-    container_name: back1
-    environment:
-      - APP_NAME=first application
-    restart: unless-stopped
-    networks:
-      - keycloak_network
-
 networks:
   keycloak_network:
     ipam:
       driver: default
-      config:
-        - subnet: 172.28.0.0/16
+      
